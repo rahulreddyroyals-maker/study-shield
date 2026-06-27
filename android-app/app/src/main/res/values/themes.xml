@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.StudyShield" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">#22C55E</item>
+        <item name="colorPrimaryVariant">#16A34A</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#0EA5E9</item>
+        <item name="android:windowBackground">#0D1B3E</item>
+        <item name="android:statusBarColor">#0D1B3E</item>
+        <item name="android:navigationBarColor">#0D1B3E</item>
+    </style>
+
+    <style name="Theme.StudyShield.Fullscreen" parent="Theme.StudyShield">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

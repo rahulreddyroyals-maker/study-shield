@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Study Shield</string>
+    <string name="accessibility_service_description">Study Shield uses accessibility to detect and block restricted apps during study sessions.</string>
+    <string name="device_admin_description">Enables Study Shield to prevent uninstallation during active study sessions.</string>
+</resources>

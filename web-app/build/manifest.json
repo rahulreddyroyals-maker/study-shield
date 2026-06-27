@@ -1,0 +1,12 @@
+{
+  "short_name": "Study Shield",
+  "name": "Study Shield – Powered by School Connect",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D1B3E",
+  "theme_color": "#22C55E",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "favicon.ico", "sizes": "64x64", "type": "image/x-icon" }
+  ]
+}
