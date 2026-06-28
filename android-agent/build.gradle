@@ -1,10 +1,27 @@
-// android-agent/build.gradle  (project level)
+// android-agent/build.gradle
 buildscript {
-    repositories { google(); mavenCentral() }
+    ext {
+        kotlin_version = '1.9.22'
+        agp_version = '8.2.2'
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.0'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22'
+        classpath "com.android.tools.build:gradle:$agp_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.4.1'
     }
 }
-allprojects { repositories { google(); mavenCentral() } }
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
