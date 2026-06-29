@@ -3,7 +3,7 @@ name: Build Study Shield Android APK
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
+  workflow_dispatch:   # also allows manual trigger from GitHub UI
 
 jobs:
   build-apk:
@@ -19,61 +19,34 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: gradle
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Verify project structure
-        run: |
-          echo "=== Repo root ==="
-          ls -la
-          echo "=== android-agent contents ==="
-          ls -la android-agent/
-          echo "=== gradlew exists? ==="
-          ls -la android-agent/gradlew || echo "MISSING gradlew!"
-          echo "=== gradle/wrapper ==="
-          ls -la android-agent/gradle/wrapper/
-
-      - name: Make gradlew executable
+      - name: Grant execute permission for gradlew
         run: chmod +x android-agent/gradlew
+        working-directory: .
 
+      # Write google-services.json from GitHub Secret
       - name: Write google-services.json
         run: |
           echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > android-agent/app/google-services.json
-          echo "google-services.json written"
-
-      - name: Cache Gradle packages
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug --no-daemon --stacktrace
+        run: ./gradlew assembleDebug --no-daemon
         working-directory: android-agent
 
-      - name: Verify APK was built
-        run: |
-          ls -la android-agent/app/build/outputs/apk/debug/
-          echo "APK size: $(du -sh android-agent/app/build/outputs/apk/debug/app-debug.apk)"
-
-      - name: Upload APK artifact
+      - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: StudyShield-debug-apk
+          name: study-shield-debug
           path: android-agent/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 30
-          if-no-files-found: error
 
+  # Also deploy web app to Firebase on every push
   deploy-web:
     name: Deploy Web App to Firebase
     runs-on: ubuntu-latest
-    # Only deploy web if secrets exist
-    if: ${{ vars.DEPLOY_WEB == 'true' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -89,9 +62,10 @@ jobs:
         run: npm ci
         working-directory: web-app
 
-      - name: Inject Firebase config
+      # Inject Firebase config from secrets
+      - name: Write Firebase config
         run: |
-          cat > web-app/src/firebaseConfig.js << 'FBEOF'
+          cat > web-app/src/services/firebaseConfig.js << 'EOF'
           export const firebaseConfig = {
             apiKey: "${{ secrets.FIREBASE_API_KEY }}",
             authDomain: "${{ secrets.FIREBASE_AUTH_DOMAIN }}",
@@ -101,7 +75,7 @@ jobs:
             appId: "${{ secrets.FIREBASE_APP_ID }}",
             measurementId: "${{ secrets.FIREBASE_MEASUREMENT_ID }}"
           };
-          FBEOF
+          EOF
 
       - name: Build React app
         run: npm run build
