@@ -1,4 +1,4 @@
-package com.studyshield.services
+package com.studyshield.app.services
 
 import android.content.Context
 import com.google.firebase.messaging.FirebaseMessagingService

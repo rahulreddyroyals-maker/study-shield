@@ -1,4 +1,4 @@
-package com.studyshield.utils
+package com.studyshield.app.utils
 
 object SessionState {
     data class Session(

@@ -3,11 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    namespace 'com.studyshield'
+    namespace 'com.studyshield.app'
     compileSdkVersion 34
 
     defaultConfig {
-        applicationId "com.studyshield"
+        applicationId "com.studyshield.app"
         minSdkVersion 24
         targetSdkVersion 34
         versionCode 1

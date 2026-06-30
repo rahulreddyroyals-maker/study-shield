@@ -1,4 +1,4 @@
-package com.studyshield.receivers
+package com.studyshield.app.receivers
 
 import android.app.admin.DeviceAdminReceiver
 import android.content.Context

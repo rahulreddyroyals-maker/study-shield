@@ -1,11 +1,11 @@
-package com.studyshield.services
+package com.studyshield.app.services
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.Intent
 import android.view.accessibility.AccessibilityEvent
-import com.studyshield.ui.BlockedActivity
-import com.studyshield.utils.SessionState
+import com.studyshield.app.ui.BlockedActivity
+import com.studyshield.app.utils.SessionState
 
 class StudyShieldAccessibilityService : AccessibilityService() {
     companion object { @Volatile var isEnabled = false }

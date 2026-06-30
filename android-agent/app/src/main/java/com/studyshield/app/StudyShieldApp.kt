@@ -1,4 +1,4 @@
-package com.studyshield
+package com.studyshield.app
 
 import android.app.Application
 import androidx.multidex.MultiDex

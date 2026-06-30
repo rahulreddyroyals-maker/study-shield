@@ -1,4 +1,4 @@
-package com.studyshield.ui
+package com.studyshield.app.ui
 
 import android.app.AppOpsManager
 import android.content.*
@@ -10,8 +10,8 @@ import android.provider.Settings
 import android.view.Gravity
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.studyshield.services.AppMonitorService
-import com.studyshield.utils.DeviceIdUtils
+import com.studyshield.app.services.AppMonitorService
+import com.studyshield.app.utils.DeviceIdUtils
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
             setTextColor(0xFF0EA5E9.toInt()); gravity = Gravity.CENTER; setPadding(0,0,0,48)
         })
 
-        // Device ID card
         val card = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL; setPadding(36,28,36,28)
             background = GradientDrawable().apply { setColor(0x14FFFFFF); cornerRadius=20f; setStroke(1,0x33FFFFFF) }
@@ -54,7 +53,6 @@ class MainActivity : AppCompatActivity() {
         card.addView(TextView(this).apply { text="Enter this in the parent app when adding this device."; textSize=12f; setTextColor(0xFF64748B.toInt()); lineSpacingExtra=4f })
         root.addView(card)
 
-        // Copy button
         root.addView(Button(this).apply {
             text = "📋  Copy Device ID"; textSize=15f; isAllCaps=false; setTextColor(0xFFFFFFFF.toInt())
             background = GradientDrawable().apply { colors=intArrayOf(0xFF22C55E.toInt(),0xFF0EA5E9.toInt()); orientation=GradientDrawable.Orientation.LEFT_RIGHT; cornerRadius=14f }

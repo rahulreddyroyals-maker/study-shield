@@ -1,4 +1,4 @@
-package com.studyshield.services
+package com.studyshield.app.services
 
 import android.app.*
 import android.app.usage.UsageEvents
@@ -14,10 +14,10 @@ import androidx.lifecycle.lifecycleScope
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
-import com.studyshield.R
-import com.studyshield.ui.BlockedActivity
-import com.studyshield.utils.DeviceIdUtils
-import com.studyshield.utils.SessionState
+import com.studyshield.app.R
+import com.studyshield.app.ui.BlockedActivity
+import com.studyshield.app.utils.DeviceIdUtils
+import com.studyshield.app.utils.SessionState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

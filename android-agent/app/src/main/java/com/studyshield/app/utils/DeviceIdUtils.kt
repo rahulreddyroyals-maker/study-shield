@@ -1,4 +1,4 @@
-package com.studyshield.utils
+package com.studyshield.app.utils
 
 import android.content.Context
 import android.provider.Settings

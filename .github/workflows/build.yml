@@ -19,36 +19,31 @@ jobs:
 
       - uses: android-actions/setup-android@v3
 
-      # ── THIS IS THE KEY FIX ──────────────────────────────────────────────
-      # Download gradlew + wrapper JAR directly from Gradle's servers.
-      # This means we NEVER depend on these binary files being in the repo.
       - name: Install Gradle wrapper
         run: |
           cd android-agent
-
-          # Download the gradlew shell script
-          curl -fsSL "https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradlew" \
-            -o gradlew
+          curl -fsSL "https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradlew" -o gradlew
           chmod +x gradlew
-
-          # Download the wrapper JAR
           mkdir -p gradle/wrapper
           curl -fsSL "https://github.com/gradle/gradle/raw/v8.4.0/gradle/wrapper/gradle-wrapper.jar" \
             -o gradle/wrapper/gradle-wrapper.jar
+          echo "gradlew ready: $(ls -la gradlew)"
 
-          echo "=== Wrapper files ==="
-          ls -la gradlew gradle/wrapper/gradle-wrapper.jar
-      # ─────────────────────────────────────────────────────────────────────
-
-      - name: Write google-services.json
+      - name: Verify google-services.json matches package
         run: |
-          echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > android-agent/app/google-services.json
+          PKG=$(python3 -c "import json; print(json.load(open('android-agent/app/google-services.json'))['client'][0]['client_info']['android_client_info']['package_name'])")
+          echo "google-services.json package: $PKG"
+          if [ "$PKG" != "com.studyshield.app" ]; then
+            echo "::error::Package mismatch! google-services.json has '$PKG' but build.gradle expects 'com.studyshield.app'"
+            exit 1
+          fi
+          echo "Package match confirmed: $PKG"
 
       - name: Cache Gradle
         uses: actions/cache@v4
         with:
           path: ~/.gradle/caches
-          key: gradle-${{ hashFiles('android-agent/**/*.gradle', 'android-agent/gradle/wrapper/gradle-wrapper.properties') }}
+          key: gradle-${{ hashFiles('android-agent/**/*.gradle') }}
           restore-keys: gradle-
 
       - name: Build APK

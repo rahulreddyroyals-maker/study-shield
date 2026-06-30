@@ -1,4 +1,4 @@
-package com.studyshield.ui
+package com.studyshield.app.ui
 
 import android.app.AppOpsManager
 import android.content.Context
@@ -48,7 +48,6 @@ class SetupActivity : AppCompatActivity() {
 
         root.addView(TextView(this).apply { text="Step ${idx+1} of ${steps.size}"; textSize=12f; setTextColor(0xFF64748B.toInt()); gravity=Gravity.CENTER })
 
-        // Progress bar
         val pb = LinearLayout(this).apply {
             orientation=LinearLayout.HORIZONTAL; gravity=Gravity.CENTER
             val lp=LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT); lp.topMargin=12; lp.bottomMargin=32; layoutParams=lp

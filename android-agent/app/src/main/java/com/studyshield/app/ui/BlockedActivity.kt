@@ -1,4 +1,4 @@
-package com.studyshield.ui
+package com.studyshield.app.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -8,7 +8,7 @@ import android.os.*
 import android.view.Gravity
 import android.view.WindowManager
 import android.widget.*
-import com.studyshield.services.AppMonitorService
+import com.studyshield.app.services.AppMonitorService
 
 class BlockedActivity : Activity() {
     private val handler = Handler(Looper.getMainLooper())
